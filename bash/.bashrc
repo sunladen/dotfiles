@@ -77,7 +77,7 @@ fi
 #    ;;
 #esac
 
-source ~/pureline/pureline ~/pureline/configs/pureline.conf
+source ~/pureline/pureline ~/.dotfiles/pureline/pureline.conf
 
 
 # enable color support of ls and also add handy aliases
