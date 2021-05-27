@@ -9,7 +9,8 @@ set hls
 set path=.,**
 set spell spelllang=en_au
 set number
-set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent smartindent
+set tabstop=4 shiftwidth=4 autoindent smartindent
+set noexpandtab
 
 highlight LineNr ctermfg=Black
 highlight ColorColumn ctermbg=Black
