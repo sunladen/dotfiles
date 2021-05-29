@@ -1,4 +1,7 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
 
 # If not running interactively, don't do anything
 case $- in

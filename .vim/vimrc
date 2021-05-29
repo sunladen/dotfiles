@@ -1,7 +1,5 @@
-filetype plugin indent on
-
-syntax on
-
+set encoding=utf-8
+scriptencoding utf-8
 set hidden
 set noswapfile
 set incsearch
@@ -11,6 +9,14 @@ set spell spelllang=en_au
 set number
 set tabstop=4 shiftwidth=4 autoindent smartindent
 set noexpandtab
+set nottimeout
+set ttimeoutlen=10
+
+
+"filetype plugin indent on
+
+"syntax on
+
 
 highlight LineNr ctermfg=Black
 highlight ColorColumn ctermbg=Black
@@ -37,6 +43,12 @@ let g:clipboard = {
 " Automatically change the current directory
 autocmd BufEnter * silent! lcd %:p:h
 
+" turn terminal to normal mode with escape
+tnoremap <Esc> <C-\><C-n>
+
+" move among buffers with Ctrl
+map <C-H> :bprev<CR>
+map <C-L> :bnext<CR>
 
 if &term =~ '^xterm'
   let &t_SI .= "\<Esc>[4 q"
@@ -46,6 +58,7 @@ endif
 call plug#begin('~/.vim/plugged')
   Plug 'vim-airline/vim-airline'
   Plug 'w0rp/ale'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 
@@ -58,10 +71,17 @@ let g:ale_fixers = {
 
 let g:ale_fix_on_save = 1
 
+nmap <C-J> :ALENext<cr>
+nmap <C-N> :lnext<cr>
 
-nmap <silent> <c-k> :bn<cr>
-nmap <silent> <c-j> :bp<cr>
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
 
-tnoremap <Esc> <C-\><C-n>
-
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
 
