@@ -1,0 +1,6 @@
+rm -rf ~/.bash_aliases && ln -s $PWD/bash/.bash_aliases ~/.bash_aliases 
+rm -rf ~/.bashrc && ln -s $PWD/bash/.bashrc ~/.bashrc
+rm -rf ~/.inputrc && ln -s $PWD/bash/.inputrc ~/.inputrc
+rm -rf ~/.profile && ln -s $PWD/bash/.profile ~/.profile
+rm -rf ~/.vim && ln -s $PWD/.vim ~/.vim
+rm -rf ~/pureline && cd ~ && git clone https://github.com/chris-marsh/pureline.git

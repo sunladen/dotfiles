@@ -1,13 +1,14 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LANGUAGE=en_US.UTF-8
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
       *) return;;
 esac
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+
 
 # X11 forwarding
 export DISPLAY=$(ip route  | awk '/default via / {print $3; exit}' 2>/dev/null):0
@@ -45,23 +46,6 @@ case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-#if [ -n "$force_color_prompt" ]; then
-#    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-#	color_prompt=yes
-#    else
-#	color_prompt=
-#    fi
-#fi
-
-
 source ~/pureline/pureline ~/.dotfiles/pureline/pureline.conf
 
 
@@ -77,7 +61,7 @@ fi
 # remove ugly green background from ow 'other, writable' and tw 'sticky, writable'
 export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 
-# Alias definitions.
+# source alias definitions
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
