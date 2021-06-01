@@ -5,7 +5,7 @@ set noswapfile
 set incsearch
 set hls
 set path=.,**
-set spell spelllang=en_au
+set nospell
 set number
 set tabstop=4 shiftwidth=4 autoindent smartindent
 set noexpandtab
@@ -13,11 +13,19 @@ set nottimeout
 set ttimeoutlen=10
 
 
-"filetype plugin indent on
+" Show file options above the command line
+set wildmenu
+set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png,*.ico
+set wildignore+=*.pdf,*.psd
+set wildignore+=LINCENSE,node_modules/*,.git/*
 
-"syntax on
+set wildcharm=<C-z>
+
+" Ctr-P open wildmenu for edit *
+map <C-p> :e *<C-z>
 
 
+syntax on
 highlight LineNr ctermfg=Black
 highlight ColorColumn ctermbg=Black
 
@@ -50,18 +58,18 @@ tnoremap <Esc> <C-\><C-n>
 map <C-H> :bprev<CR>
 map <C-L> :bnext<CR>
 
-if &term =~ '^xterm'
-  let &t_SI .= "\<Esc>[4 q"
-  let &t_EI .= "\<Esc>[2 q"
-endif
+"if &term =~ '^xterm'
+"  let &t_EI .= "\<Esc>[44;2 q"
+"endif
 
 call plug#begin('~/.vim/plugged')
   Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
   Plug 'w0rp/ale'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
-
+let g:airline_theme='bubblegum'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
