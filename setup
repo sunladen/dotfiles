@@ -1,4 +1,5 @@
 rm -rf ~/.bash_aliases && ln -s $PWD/bash/.bash_aliases ~/.bash_aliases 
+rm -rf ~/.bash_profile && ln -s $PWD/bash/.bash_profile ~/.bash_profile
 rm -rf ~/.bashrc && ln -s $PWD/bash/.bashrc ~/.bashrc
 rm -rf ~/.inputrc && ln -s $PWD/bash/.inputrc ~/.inputrc
 rm -rf ~/.profile && ln -s $PWD/bash/.profile ~/.profile
