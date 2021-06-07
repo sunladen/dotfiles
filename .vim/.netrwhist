@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =1
+let g:netrw_dirhistcnt =2
+let g:netrw_dirhist_2='/home/sunladen/sunladen.github.io'
 let g:netrw_dirhist_1='/home/sunladen/.dotfiles/.vim/plugged/vim-airline-themes/autoload/airline/themes'
 let g:netrw_dirhist_0='/home/sunladen/.dotfiles/.vim/plugged/vim-airline-themes/autoload/airline'
 let g:netrw_dirhist_9='/home/sunladen/.dotfiles/.vim/plugged/vim-airline-themes/autoload'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_6='/home/sunladen/.dotfiles/.vim/plugged/coc.nvim'
 let g:netrw_dirhist_5='/home/sunladen/.dotfiles/.vim/plugged/coc.nvim/plugin'
 let g:netrw_dirhist_4='/home/sunladen/.dotfiles/.vim/plugged/coc.nvim'
 let g:netrw_dirhist_3='/home/sunladen/.dotfiles/.vim/plugged/coc.nvim/build'
-let g:netrw_dirhist_2='/home/sunladen/.dotfiles/.vim/plugged/coc.nvim'
