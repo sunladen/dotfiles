@@ -23,4 +23,4 @@ ssh-scarmody-new-dev() { ssh scarmody@zauaed1pubapp01.wkap.int; }
 ssh-scarmody-ngp-tst() { ssh scarmody@apau28pubapp254.wkap.int; }
 ssh-scarmody-ngp-prd() { ssh scarmody@apau28pubapp202.wkap.int; }
 
-ssh-scarmody-newsagent() { ssh scarmody@apvthau28444; }
+ssh-scarmody-newsagent() { ssh scarmody@apvthau28444.wkap.int; }
