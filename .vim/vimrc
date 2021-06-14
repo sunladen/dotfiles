@@ -33,22 +33,6 @@ highlight ColorColumn ctermbg=Black
 " Enable system clipboard integration
 set clipboard+=unnamedplus
 
-" Workaround for neovim wl-clipboard and netrw interaction hang 
-" (see: https://github.com/neovim/neovim/issues/6695 and
-" https://github.com/neovim/neovim/issues/9806) 
-let g:clipboard = {
-      \   'name': 'myClipboard',
-      \   'copy': {
-      \      '+': 'wl-copy',
-      \      '*': 'wl-copy',
-      \    },
-      \   'paste': {
-      \      '+': 'wl-paste -o',
-      \      '*': 'wl-paste -o',
-      \   },
-      \   'cache_enabled': 0,
-      \ }
-
 " Automatically change the current directory
 autocmd BufEnter * silent! lcd %:p:h
 
@@ -58,6 +42,10 @@ tnoremap <Esc> <C-\><C-n>
 " move among buffers with Ctrl
 map <C-H> :bprev<CR>
 map <C-L> :bnext<CR>
+
+map [[ :silent! eval search('{', 'b')<CR>
+map ]] :silent! eval search('{')<CR>
+
 
 if &term =~ '^xterm'
   " use blinking vertical bar in insert mode
