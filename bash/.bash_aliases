@@ -24,3 +24,5 @@ ssh-scarmody-ngp-tst() { ssh scarmody@apau28pubapp254.wkap.int; }
 ssh-scarmody-ngp-prd() { ssh scarmody@apau28pubapp202.wkap.int; }
 
 ssh-scarmody-newsagent() { ssh scarmody@apvthau28444.wkap.int; }
+
+update-apt-auto-upgrade-remove-clean() { sudo -- sh -c 'apt update; apt upgrade -y; apt dist-upgrade -y; apt autoremove -y; apt autoclean -y'; }

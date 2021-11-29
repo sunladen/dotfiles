@@ -6,8 +6,7 @@ set incsearch
 set hls
 set path=.,**
 set nospell
-set number
-set signcolumn=number
+set signcolumn=no
 set tabstop=4 shiftwidth=4 autoindent smartindent
 set noexpandtab
 set nottimeout
@@ -61,11 +60,22 @@ call plug#begin('~/.vim/plugged')
   Plug 'vim-airline/vim-airline-themes'
   Plug 'w0rp/ale'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'Mofiqul/vscode.nvim'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
 call plug#end()
 
-let g:airline_theme='bubblegum'
-let g:airline#extensions#tabline#enabled = 1
+
+let g:airline_theme='jellybeans'
+"let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
+
+
+let g:vscode_style = "dark"
+colorscheme vscode
+hi Normal guibg=NONE ctermbg=NONE
+
+
 
 let g:ale_fixers = {
  \ 'javascript': ['eslint']
