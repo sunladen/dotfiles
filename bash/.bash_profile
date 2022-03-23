@@ -14,6 +14,10 @@ shopt -s histappend
 HISTSIZE=1000
 HISTFILESIZE=2000
 
+PS1="\n\`if [[ \$? = "0" ]]; then echo "\\[\\033[32m\\]"; else echo "\\[\\033[31m\\]"; fi\`\`if [[ `pwd|wc -c|tr -d " "` > 18 ]]; then echo "\\W"; else echo "\\w"; fi\` \[\033[34m\]\$\[\033[0m\] "
+
+
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -59,3 +63,4 @@ export NVM_DIR="$HOME/.nvm"
 export VISUAL=nvim
 export EDITOR=nvim
 
+export USERPROFILE=/mnt/c/Users/Stephen.Carmody/
