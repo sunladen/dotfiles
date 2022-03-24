@@ -60,7 +60,17 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+
+# make neovim the default editor
 export VISUAL=nvim
 export EDITOR=nvim
 
+
 export USERPROFILE=/mnt/c/Users/Stephen.Carmody/
+
+
+if [ -f "/mnt/c/Windows/System32/wsl.exe" ]; then
+	# run Docker service if not already running
+	/mnt/c/Windows/System32/wsl.exe -u root -e sh -c "service docker status || service docker start"
+fi
+
