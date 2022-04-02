@@ -14,7 +14,7 @@ shopt -s histappend
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-PS1="\n\`if [[ \$? = "0" ]]; then echo "\\[\\033[32m\\]"; else echo "\\[\\033[31m\\]"; fi\`\`if [[ `pwd|wc -c|tr -d " "` > 18 ]]; then echo "\\W"; else echo "\\w"; fi\` \[\033[34m\]\$\[\033[0m\] "
+PS1="\n\`if [[ \$? = "0" ]]; then echo "\\[\\033[32m\\]"; else echo "\\[\\033[31m\\]"; fi\`\\w \[\033[34m\]\$\[\033[0m\] "
 
 
 
@@ -73,4 +73,7 @@ if [ -f "/mnt/c/Windows/System32/wsl.exe" ]; then
 	# run Docker service if not already running
 	/mnt/c/Windows/System32/wsl.exe -u root -e sh -c "service docker status || service docker start"
 fi
+
+
+cd ~
 
