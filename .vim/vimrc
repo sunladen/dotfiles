@@ -11,6 +11,7 @@ set tabstop=4 shiftwidth=4 autoindent smartindent
 set noexpandtab
 set nottimeout
 set ttimeoutlen=10
+let g:netrw_dirhistmax = 0
 
 
 " Show file options above the command line
@@ -56,25 +57,11 @@ if &term =~ '^xterm'
 endif
 
 call plug#begin('~/.vim/plugged')
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  Plug 'w0rp/ale'
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'Mofiqul/vscode.nvim'
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-  Plug 'junegunn/fzf.vim'
+  Plug 'dense-analysis/ale'
 call plug#end()
 
 
-let g:airline_theme='jellybeans'
-"let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-
-
-let g:vscode_style = "dark"
-colorscheme vscode
 hi Normal guibg=NONE ctermbg=NONE
-
 
 
 let g:ale_fixers = {
@@ -91,9 +78,4 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
-
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
 
