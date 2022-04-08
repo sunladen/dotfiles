@@ -2,9 +2,6 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-alias vi='nvim'
-alias vim='nvim'
-
 alias python='python3'
 alias pip='pip3'
 
