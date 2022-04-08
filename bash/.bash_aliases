@@ -26,4 +26,4 @@ ssh-scarmody-ngp-prd() { ssh scarmody@zaue1ppubap02.wkap.int; }
 
 ssh-scarmody-newsagent() { ssh scarmody@zaue1pcchiqap02.wkap.int; }
 
-update-apt-auto-upgrade-remove-clean() { sudo -- sh -c 'apt update; apt upgrade -y; apt dist-upgrade -y; apt autoremove -y; apt autoclean -y'; }
+apt-update-remove-clean() { sudo -- sh -c 'apt update; apt upgrade -y; apt dist-upgrade -y; apt autoremove -y; apt autoclean -y'; }
