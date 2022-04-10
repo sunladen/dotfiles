@@ -1,5 +1,18 @@
 set nocompatible
 
+" Get Plug if not installed
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+	silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.local/share/nvim/site/plugged')
+  Plug 'dense-analysis/ale'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
+call plug#end()
+
 set encoding=utf-8
 scriptencoding utf-8
 
@@ -44,20 +57,17 @@ highlight ColorColumn ctermbg=Black
 set clipboard+=unnamedplus
 
 
-" Automatically change the current directory
-autocmd BufEnter * silent! lcd %:p:h
-
 nnoremap <SPACE> <Nop>
 let mapleader=" "
 
- 
+
 " turn terminal to normal mode with escape
 tnoremap <Esc> <C-\><C-n>
 
 
 " move among buffers with Ctrl
-map <Leader>h :bprev<CR>
-map <Leader>l :bnext<CR>
+map <leader>h :bprev<CR>
+map <leader>l :bnext<CR>
 
 map [[ :silent! eval search('{', 'b')<CR>
 map ]] :silent! eval search('{')<CR>
@@ -72,24 +82,18 @@ if &term =~ '^xterm'
   let &t_TE = "\<Esc>[H\<Esc>[2J"
 endif
 
-call plug#begin('~/.vim/plugged')
-  Plug 'dense-analysis/ale'
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-telescope/telescope.nvim'
-call plug#end()
-
 
 hi Normal guibg=NONE ctermbg=NONE
 
 
 let g:ale_fixers = {
- \ 'javascript': ['eslint']
- \ }
-
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint'],
+\}
 let g:ale_fix_on_save = 1
 
-nmap <Leader>j :ALENext<cr>
-nmap <Leader>n :lnext<cr>
+nmap <leader>j :ALENext<cr>
+nmap <leader>n :lnext<cr>
 
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
@@ -98,3 +102,7 @@ function! s:check_back_space() abort
 endfunction
 
 
+" Find files using Telescope
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>

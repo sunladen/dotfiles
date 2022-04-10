@@ -56,24 +56,42 @@ if ! shopt -oq posix; then
   fi
 fi
 
+
+
+# X - Export display and force rendering on windows side
+export DISPLAY=localhost:0
+export LIBGL_ALWAYS_INDIRECT=1
+
+
+
+export WSL=$(which wsl.exe)
+export DOCKER=$(which docker)
+
+if [ ! -z "$WSL" ] && [ ! -z "$DOCKER" ]; then
+	# run Docker service if not already running
+	$WSL -u root -e sh -c "service docker status || service docker start"
+fi
+
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
-# make neovim the default editor
-export VISUAL=nvim
-export EDITOR=nvim
+# Run Tmux
+session_name="0"
 
+# 1. First you check if a tmux session exists with a given name.
+tmux has-session -t=$session_name 2> /dev/null
 
-export USERPROFILE=/mnt/c/Users/Stephen.Carmody/
-
-
-if [ -f "/mnt/c/Windows/System32/wsl.exe" ]; then
-	# run Docker service if not already running
-	/mnt/c/Windows/System32/wsl.exe -u root -e sh -c "service docker status || service docker start"
+# 2. Create the session if it doesn't exists.
+if [[ $? -ne 0 ]]; then
+  TMUX='' tmux new-session -d -s "$session_name"
 fi
 
-
-cd ~
-
+# 3. Attach if outside of tmux, switch if you're in tmux.
+if [[ -z "$TMUX" ]]; then
+  tmux attach -t "$session_name"
+else
+  tmux switch-client -t "$session_name"
+fi

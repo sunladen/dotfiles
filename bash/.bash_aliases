@@ -5,6 +5,9 @@ alias l='ls -CF'
 alias python='python3'
 alias pip='pip3'
 
+alias vi='nvim'
+alias vim='nvim'
+
 ssh-ecls-cls-dev() { ssh ecls@zaue1declsap02.wkap.int; }
 ssh-ecls-cls-tst() { ssh ecls@apau28pubapp253.wkap.int; }
 ssh-ecls-cls-prd() { ssh ecls@zaue1peclsap04.wkap.int; }

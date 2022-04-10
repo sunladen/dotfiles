@@ -4,4 +4,5 @@ rm -rf ~/.bashrc && ln -s $PWD/bash/.bashrc ~/.bashrc
 rm -rf ~/.inputrc && ln -s $PWD/bash/.inputrc ~/.inputrc
 rm -rf ~/.profile && ln -s $PWD/bash/.profile ~/.profile
 rm -rf ~/.vim && ln -s $PWD/.vim ~/.vim
-mkdir -p ~/.config/nvim && rm -rf ~/.config/nvim/init.vim && ln -s $PWD/.config/nvim/init.vim ~/.config/nvim/init.vim
+rm -rf ~/.tmux.conf && ln -s $PWD/.tmux.conf ~/.tmux.conf
+rm -rf ~/.tmux && ln -s $PWD/.tmux ~/.tmux
