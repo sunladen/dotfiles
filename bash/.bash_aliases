@@ -5,8 +5,17 @@ alias l='ls -CF'
 alias python='python3'
 alias pip='pip3'
 
-alias vi='nvim'
-alias vim='nvim'
+vi() {
+	if command -v nvim &> /dev/null
+	then
+		nvim $@
+	elif command -v vim &> /dev/null 
+	then
+		vim $@
+	else
+		vi $@
+	fi
+}
 
 ssh-ecls-cls-dev() { ssh ecls@zaue1declsap02.wkap.int; }
 ssh-ecls-cls-tst() { ssh ecls@apau28pubapp253.wkap.int; }
