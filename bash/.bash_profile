@@ -1,3 +1,22 @@
+# function for testing if a Git For Windows environment
+# example:
+# if testIsGitForWindows; then
+#   echo "is Git for Windows"
+# fi
+testIsGitForWindows() {
+	[[ "$(head -1 /proc/version)" =~ "XMINGW".* ]]
+}
+
+# function for testing if a WSL environment
+# example:
+# if testIsWSL; then
+#   echo "is WSL"
+# fi
+testIsWSL() {
+	[[ "$(head -1 /proc/version)" =~ .*"-microsoft-standard".* ]]
+}
+
+
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
@@ -14,12 +33,11 @@ shopt -s histappend
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-PS1="\n\`if [[ \$? = "0" ]]; then echo "\\[\\033[32m\\]"; else echo "\\[\\033[31m\\]"; fi\`\\w \[\033[34m\]\$\[\033[0m\] "
-
 
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
+
 shopt -s checkwinsize
 
 # set a fancy prompt (non-color, unless we know we "want" color)
@@ -63,35 +81,12 @@ export DISPLAY=localhost:0
 export LIBGL_ALWAYS_INDIRECT=1
 
 
-
-export WSL=$(which wsl.exe)
-export DOCKER=$(which docker)
-
-if [ ! -z "$WSL" ] && [ ! -z "$DOCKER" ]; then
+if testIsWSL && [ command -v docker ] &> /dev/null; then
+	echo "in WSL and docker command is available"
 	# run Docker service if not already running
-	$WSL -u root -e sh -c "service docker status || service docker start"
+	#wsl -u root -e sh -c "service docker status || service docker start"
 fi
 
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+PS1="\n\`if [[ \$? = "0" ]]; then echo "\\[\\033[32m\\]"; else echo "\\[\\033[31m\\]"; fi\`\\w \[\033[34m\]\$\[\033[0m\] "
 
-
-# Run Tmux
-session_name="0"
-
-# 1. First you check if a tmux session exists with a given name.
-tmux has-session -t=$session_name 2> /dev/null
-
-# 2. Create the session if it doesn't exists.
-if [[ $? -ne 0 ]]; then
-  TMUX='' tmux new-session -d -s "$session_name"
-fi
-
-# 3. Attach if outside of tmux, switch if you're in tmux.
-if [[ -z "$TMUX" ]]; then
-  tmux attach -t "$session_name"
-else
-  tmux switch-client -t "$session_name"
-fi

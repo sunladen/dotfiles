@@ -2,9 +2,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-alias python='python3'
-alias pip='pip3'
-
+# vi alias try nvim, fallback to vim, fallback to vi
 vi() {
 	if command -v nvim &> /dev/null
 	then
@@ -35,4 +33,6 @@ ssh-scarmody-ngp-prd() { ssh scarmody@zaue1ppubap02.wkap.int; }
 
 ssh-scarmody-newsagent() { ssh scarmody@zaue1pcchiqap02.wkap.int; }
 
+
+# alias for the full apt update, upgrade, remove, clean cycle
 apt-update-remove-clean() { sudo -- sh -c 'apt update; apt upgrade -y; apt dist-upgrade -y; apt autoremove -y; apt autoclean -y'; }
