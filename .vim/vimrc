@@ -11,7 +11,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'dense-analysis/ale'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
-  Plug 'airblade/vim-rooter'
 call plug#end()
 
 set encoding=utf-8
@@ -96,6 +95,9 @@ let g:ale_fix_on_save = 1
 nmap <leader>j :ALENext<cr>
 nmap <leader>n :lnext<cr>
 
+
+
+
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -103,7 +105,11 @@ function! s:check_back_space() abort
 endfunction
 
 
-" Find files using Telescope
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
+
+
+" Find files using fzf
+nnoremap <leader>ff <cmd>Files<cr>
+nnoremap <leader>fg <cmd>Rg<cr>
+nnoremap <leader>fb <cmd>Lines<cr>
+
+let $FZF_DEFAULT_COMMAND="rg --files --hidden"

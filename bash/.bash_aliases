@@ -2,18 +2,10 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# vi alias try nvim, fallback to vim, fallback to vi
-vi() {
-	if command -v nvim &> /dev/null
-	then
-		nvim $@
-	elif command -v vim &> /dev/null 
-	then
-		vim $@
-	else
-		vi $@
-	fi
-}
+if command -v batcat &> /dev/null; then alias bat='batcat'; fi
+
+if command -v nvim &> /dev/null; then alias vi='nvim'; elif command -v vim &> /dev/null; then alias vi='vim'; fi
+
 
 ssh-ecls-cls-dev() { ssh ecls@zaue1declsap02.wkap.int; }
 ssh-ecls-cls-tst() { ssh ecls@apau28pubapp253.wkap.int; }
