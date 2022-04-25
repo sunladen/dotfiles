@@ -37,8 +37,8 @@ HISTFILESIZE=2000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
+#shopt -s checkwinsize
 
-shopt -s checkwinsize
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
@@ -81,10 +81,9 @@ export DISPLAY=localhost:0
 export LIBGL_ALWAYS_INDIRECT=1
 
 
-if testIsWSL && [ command -v docker ] &> /dev/null; then
-	echo "in WSL and docker command is available"
-	# run Docker service if not already running
-	#wsl -u root -e sh -c "service docker status || service docker start"
+# when docker and service command are available; start Docker if not already running
+if [ command -v service ] &> /dev/null && [ command -v docker ] &> /dev/null; then
+	wsl -u root -e sh -c "service docker status || service docker start"
 fi
 
 
