@@ -11,7 +11,18 @@ call plug#begin('~/.vim/plugged')
   Plug 'dense-analysis/ale'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
+  Plug 'francoiscabrol/ranger.vim'
+  Plug 'rbgrouleff/bclose.vim'
 call plug#end()
+
+
+" open ranger when vim open a directory
+let g:ranger_replace_netrw = 1
+
+" display hidden files by default
+let g:ranger_command_override = 'ranger --cmd "set show_hidden=true"'
+
+
 
 set encoding=utf-8
 scriptencoding utf-8

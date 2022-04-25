@@ -87,5 +87,9 @@ if [ command -v service ] &> /dev/null && [ command -v docker ] &> /dev/null; th
 fi
 
 
-PS1="\n\`if [[ \$? = "0" ]]; then echo "\\[\\033[32m\\]"; else echo "\\[\\033[31m\\]"; fi\`\\w \[\033[34m\]\$\[\033[0m\] "
+EDITOR=vi
+SUDO_EDITOR=vi
+VISUAL=vi
 
+
+PS1="\n\`if [[ \$? = "0" ]]; then echo "\\[\\033[32m\\]"; else echo "\\[\\033[31m\\]"; fi\`\\w \[\033[34m\]\$\[\033[0m\] "
