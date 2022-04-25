@@ -9,8 +9,9 @@ endif
 
 call plug#begin('~/.vim/plugged')
   Plug 'dense-analysis/ale'
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
+  Plug 'airblade/vim-rooter'
 call plug#end()
 
 set encoding=utf-8
