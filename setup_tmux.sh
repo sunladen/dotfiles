@@ -1,8 +1,19 @@
 #!/usr/bin/env bash
 
-if ! command -v aclocal &> /dev/null; then echo "automake not available, run... sudo apt install autotools-dev automake"; fi
+missing_packages=()
+if ! command -v aclocal &> /dev/null; then
+	missing_packages+=("autotools-dev")
+	missing_packages+=("automake")
+fi
+if ! command -v libtoolize &> /dev/null; then missing_packages+=("libtool"); fi
 
-if ! command -v libtoolize &> /dev/null; then echo "libtoolize not available, run... sudo apt install libtool"; fi
+if [ ${#missing_packages[@]} -gt 0 ]; then
+	missing_packages=$(IFS=" " ; echo "${missing_packages[*]}")
+	echo "missing packages... sudo apt install ${missing_packages}"
+	exit
+fi
+
+exit
 
 set -e
 
