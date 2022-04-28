@@ -22,11 +22,6 @@ HISTFILESIZE=2000
 
 
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
-
-
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
@@ -45,6 +40,17 @@ fi
 
 # remove ugly green background from ow 'other, writable' and tw 'sticky, writable'
 export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
+
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
 
 
 # source alias definitions
