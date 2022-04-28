@@ -1,35 +1,22 @@
-# function for testing if a Git For Windows environment
-# example:
-# if testIsGitForWindows; then
-#   echo "is Git for Windows"
-# fi
-testIsGitForWindows() {
-	[[ "$(head -1 /proc/version)" =~ "XMINGW".* ]]
-}
-
-# function for testing if a WSL environment
-# example:
-# if testIsWSL; then
-#   echo "is WSL"
-# fi
-testIsWSL() {
-	[[ "$(head -1 /proc/version)" =~ .*"-microsoft-standard".* ]]
-}
-
-
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 
+export DISPLAY=localhost:0
+export LIBGL_ALWAYS_INDIRECT=1
+
+export EDITOR=vi
+export SUDO_EDITOR=vi
+export VISUAL=vi
+
 
 # don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
 HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+# set history length
 HISTSIZE=1000
 HISTFILESIZE=2000
 
@@ -37,7 +24,7 @@ HISTFILESIZE=2000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
-#shopt -s checkwinsize
+shopt -s checkwinsize
 
 
 # set a fancy prompt (non-color, unless we know we "want" color)
@@ -55,13 +42,16 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+
 # remove ugly green background from ow 'other, writable' and tw 'sticky, writable'
 export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
+
 
 # source alias definitions
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -76,20 +66,37 @@ fi
 
 
 
-# X - Export display and force rendering on windows side
-export DISPLAY=localhost:0
-export LIBGL_ALWAYS_INDIRECT=1
-
-
 # when docker and service command are available; start Docker if not already running
 if [ command -v service ] &> /dev/null && [ command -v docker ] &> /dev/null; then
 	wsl -u root -e sh -c "service docker status || service docker start"
 fi
 
 
-export EDITOR=vi
-export SUDO_EDITOR=vi
-export VISUAL=vi
+##
+# Node Version Manager (nvm)
+#
+# install if not available
+export NVM_DIR="$HOME/.nvm"
+if [ ! -d $NVM_DIR ]; then
+  git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
+  cd "$NVM_DIR"
+  . "$NVM_DIR/nvm.sh"
+fi
+
+# make sure we have the latest Node Version Manager
+cd "$NVM_DIR"
+. "$NVM_DIR/nvm.sh"
+echo "NVM check for latest..."
+git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+cd ~
+
+# load nvm and bash completion on login
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+#
+##
 
 
 PS1="\n\`if [[ \$? = "0" ]]; then echo "\\[\\033[32m\\]"; else echo "\\[\\033[31m\\]"; fi\`\\w \[\033[34m\]\$\[\033[0m\] "
