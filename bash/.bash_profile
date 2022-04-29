@@ -72,16 +72,13 @@ fi
 
 
 
-# when docker and service command are available; start Docker if not already running
-if [ command -v service ] &> /dev/null && [ command -v docker ] &> /dev/null; then
+# when wsl, docker and service commands are available; start Docker as root if not already running
+if command -v wsl &> /dev/null && command -v service &> /dev/null && command -v docker &> /dev/null; then
 	wsl -u root -e sh -c "service docker status || service docker start"
 fi
 
 
-##
-# Node Version Manager (nvm)
-#
-# install if not available
+# install Node Version Manager (nvm) if not available
 export NVM_DIR="$HOME/.nvm"
 if [ ! -d $NVM_DIR ]; then
   git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
@@ -90,17 +87,12 @@ if [ ! -d $NVM_DIR ]; then
   . "$NVM_DIR/nvm.sh"
 fi
 
-# load nvm and bash completion on login
+# load nvm on login
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-#
-##
 
 
 PS1="\n\`if [[ \$? = "0" ]]; then echo "\\[\\033[32m\\]"; else echo "\\[\\033[31m\\]"; fi\`\\w \[\033[34m\]\$\[\033[0m\] "
 
-if command -v tmux &> /dev/null && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  tmux a -t default || exec tmux new -s default && exit;
-fi

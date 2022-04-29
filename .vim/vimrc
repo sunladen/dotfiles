@@ -79,26 +79,20 @@ hi Normal guibg=NONE ctermbg=NONE
 
 
 " Plug plugins manager
+" Install manager if not intalled
 if empty(glob('~/.vim/autoload/plug.vim'))
 	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
 		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin('~/.vim/plugged')
   Plug 'dense-analysis/ale'
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-  Plug 'junegunn/fzf.vim'
-  Plug 'francoiscabrol/ranger.vim'
-  Plug 'rbgrouleff/bclose.vim'
 call plug#end()
 
-
-" open ranger when vim open a directory
-let g:ranger_replace_netrw = 1
-
-" display hidden files by default
-let g:ranger_command_override = 'ranger --cmd "set show_hidden=true"'
+autocmd VimEnter *
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync | q
+  \| endif
 
 
 let g:ale_fixers = {
@@ -111,20 +105,3 @@ nmap <leader>j :ALENext<cr>
 
 nmap <leader>N :lprev<cr>
 nmap <leader>n :lnext<cr>
-
-
-
-" use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-
-
-" Find files using fzf
-nnoremap <leader>ff <cmd>Files<cr>
-nnoremap <leader>fg <cmd>Rg<cr>
-nnoremap <leader>fb <cmd>Lines<cr>
-
-let $FZF_DEFAULT_COMMAND="rg --files --hidden"

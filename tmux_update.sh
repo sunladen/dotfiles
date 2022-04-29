@@ -8,14 +8,14 @@ latest_version=$(echo "$latest_dirname" | sed "s/tmux-/tmux /")
 install_latest=0
 
 if command -v tmux &> /dev/null; then
-	installed_version=$(tmux -V 2> /dev/null | head -1)
-	if [ "$installed_version" != "$latest_version" ]; then
-		echo "installed version $installed_version, newer version $latest_version available"
-		install_latest=1
+		installed_version=$(tmux -V 2> /dev/null | head -1)
+		if [ "$installed_version" != "$latest_version" ]; then
+			echo "installed version $installed_version, newer version $latest_version available"
+			install_latest=1
+		else
+			echo "installed version $installed_version is up-to-date"
+		fi
 	else
-		echo "installed version $installed_version is up-to-date"
-	fi
-else
 	install_latest=1
 fi
 
