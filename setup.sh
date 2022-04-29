@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 rm -rf ~/.bash_aliases && ln -s $PWD/bash/.bash_aliases ~/.bash_aliases
 rm -rf ~/.bash_profile && ln -s $PWD/bash/.bash_profile ~/.bash_profile
 rm -rf ~/.bashrc && ln -s $PWD/bash/.bashrc ~/.bashrc
@@ -7,3 +9,14 @@ rm -rf ~/.vim && ln -s $PWD/.vim ~/.vim
 rm -rf ~/.config/nvim && ln -s $PWD/.config/nvim ~/.config/nvim
 rm -rf ~/.tmux.conf && ln -s $PWD/.tmux.conf ~/.tmux.conf
 rm -rf ~/.config/ranger && ln -s $PWD/.config/ranger ~/.config/ranger
+
+read -r -p "run update checks (requires sudo)? [Yn] " response
+case "$response" in
+	[Yy])
+		;;
+	*)
+		exit
+		;;
+esac
+
+sudo ./update.sh
