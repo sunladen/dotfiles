@@ -14,5 +14,6 @@ apt autoremove -y
 apt autoclean -y
 
 
-# Check for tmux updates
-. ./tmux_update.sh
+# Check for specific tool updates
+#. ./tmux_update.sh
+. ./vim_update.sh
