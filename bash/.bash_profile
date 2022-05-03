@@ -10,6 +10,9 @@ export SUDO_EDITOR=vi
 export VISUAL=vi
 
 
+export FZF_DEFAULT_COMMAND='rg --hidden -l ""'
+
+
 # don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth
 
@@ -93,6 +96,4 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 
-
 PS1="\n\`if [[ \$? = "0" ]]; then echo "\\[\\033[32m\\]"; else echo "\\[\\033[31m\\]"; fi\`\\w \[\033[34m\]\$\[\033[0m\] "
-

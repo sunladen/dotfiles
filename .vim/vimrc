@@ -13,7 +13,7 @@ set signcolumn=no
 set tabstop=2 shiftwidth=2 autoindent smartindent
 set noexpandtab
 set nottimeout
-set ttimeoutlen=10
+set ttimeoutlen=0
 set ruler
 set number
 set noshowmode
@@ -54,7 +54,12 @@ let mapleader=" "
 
 
 " turn terminal to normal mode with escape
-tnoremap <Esc> <C-\><C-n>
+"tnoremap <Esc> <C-\><C-n>
+
+nmap <leader>N :lprev<cr>
+nmap <leader>n :lnext<cr>
+nmap ; $
+nmap <leader>; ^
 
 
 " move among buffers
@@ -87,6 +92,8 @@ endif
 
 call plug#begin('~/.vim/plugged')
   Plug 'dense-analysis/ale'
+	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+	Plug 'junegunn/fzf.vim'
 call plug#end()
 
 autocmd VimEnter *
@@ -103,5 +110,6 @@ let g:ale_fix_on_save = 1
 
 nmap <leader>j :ALENext<cr>
 
-nmap <leader>N :lprev<cr>
-nmap <leader>n :lnext<cr>
+nnoremap <leader>ff <cmd>Files<cr>
+nnoremap <leader>fg <cmd>Rg<cr>
+nnoremap <leader>fb <cmd>Buffers<cr>

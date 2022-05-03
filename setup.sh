@@ -25,6 +25,23 @@ rm -rf ~/.tmux.conf && ln -s $PWD/.tmux.conf ~/.tmux.conf
 rm -rf ~/.config/ranger && ln -s $PWD/.config/ranger ~/.config/ranger
 
 
+# install Node Version Manager (nvm) if not available
+export NVM_DIR="$HOME/.nvm"
+if [ ! -d $NVM_DIR ]; then
+  git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
+  cd "$NVM_DIR"
+	git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+  . "$NVM_DIR/nvm.sh"
+fi
+
+
+# install Tmux Plugin Manager (tpm) if not available
+TPM_DIR="$HOME/.tmux/plugins/tpm"
+if [ ! -d $TPM_DIR ]; then
+	git clone https://github.com/tmux-plugins/tpm "$TPM_DIR"
+fi
+
+
 # question whether to go on and perform package management and tool installs
 read -r -p "run package purge, install and updates (requires sudo)? [Yn] " response
 case "$response" in
@@ -47,7 +64,8 @@ case "$response" in
 		#sudo du -sh / --exclude=/mnt/c
 
 		sudo apt install -y wsl
-		sudo apt install -y ripgrep
+		sudo apt install -y fzf
+		sudo apt install -y -o Dpkg::Options::="--force-overwrite" bat ripgrep
 
 		sudo ./update.sh
 		;;

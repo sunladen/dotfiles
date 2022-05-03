@@ -11,3 +11,4 @@ sudo apt autoclean -y
 
 # Check for specific tool updates
 ./vim_update.sh
+./tmux_update.sh

@@ -4,7 +4,7 @@ compareInstalled() {
 	cmd="${2}"
   cmd_read_version="${3}"
 	cmp=0
-	
+
 	if command -v "${cmd}" &> /dev/null; then
 		installed_version="$(eval ${cmd} ${cmd_read_version})"
 		if [ "${installed_version}" != "${latest_version}" ]; then
@@ -16,7 +16,7 @@ compareInstalled() {
 	else
 		cmp=1
 	fi
-	
+
 	if [ "${cmp}" -eq "1" ]; then
 		read -r -p "install $latest_version? [Yn] " response
 		case "$response" in
@@ -65,23 +65,22 @@ downloadAndInstall() {
 
 	tarball_url="${1}"
 	filename="download.tar.gz"
-			
+
 	cd /tmp
-	
+
 	wget -O "${filename}" "${tarball_url}"
-	extracted_dir=$(tar xvf "${filename}" | head -1)
+	extracted_dir=$(tar -tf "${filename}" | head -1 | cut -d "/" -f1)
 	tar xvf "${filename}"
 
 	cd "${extracted_dir}"
 	./configure
 	make
 	sudo make install
-	
-	
+
+
 	# Clean up
 	cd ..
 	rm -rf "${extracted_dir}"
 	rm -f "${filename}"
 
 }
-
