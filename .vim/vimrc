@@ -17,7 +17,7 @@ set ttimeoutlen=0
 set ruler
 set number
 set noshowmode
-set laststatus=1
+set laststatus=2
 set cursorline
 
 highlight CursorLine term=bold cterm=bold gui=bold
@@ -113,3 +113,7 @@ nmap <leader>j :ALENext<cr>
 nnoremap <leader>ff <cmd>Files<cr>
 nnoremap <leader>fg <cmd>Rg<cr>
 nnoremap <leader>fb <cmd>Buffers<cr>
+
+python3 from powerline.vim import setup as powerline_setup
+python3 powerline_setup()
+python3 del powerline_setup

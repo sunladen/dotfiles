@@ -62,8 +62,9 @@ dependancies() {
 
 
 downloadAndInstall() {
+ 	tarball_url="${1}"
+  configure_args="${2}"
 
-	tarball_url="${1}"
 	filename="download.tar.gz"
 
 	cd /tmp
@@ -73,7 +74,8 @@ downloadAndInstall() {
 	tar xvf "${filename}"
 
 	cd "${extracted_dir}"
-	./configure
+	exit 0
+	./configure ${configure_args}
 	make
 	sudo make install
 

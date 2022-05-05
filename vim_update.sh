@@ -9,4 +9,4 @@ compareInstalled "${tarball_version}" "vim" "--version | head -2 | sed \"N;s/\n/
 
 dependancies "build-essential" "libncurses-dev"
 
-downloadAndInstall "${tarball_url}"
+downloadAndInstall "${tarball_url}" "--enable-python3interp --with-python3-command=python3.8 --with-python3-config-dir=/usr/lib/python3.8/config-3.8-x86_64-linux-gnu"

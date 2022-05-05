@@ -75,3 +75,9 @@ esac
 
 # source new symlinked $HOME/.bashrc
 . ~/.bashrc
+
+# install pip
+sudo apt install python3-pip
+
+# user-level install powerline-status
+pip install --user powerline-status
