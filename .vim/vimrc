@@ -58,8 +58,6 @@ let mapleader=" "
 
 nmap <leader>N :lprev<cr>
 nmap <leader>n :lnext<cr>
-nmap ; $
-nmap <leader>; ^
 
 
 " move among buffers
@@ -92,8 +90,10 @@ endif
 
 call plug#begin('~/.vim/plugged')
   Plug 'dense-analysis/ale'
+	Plug 'eslint/eslint'
 	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	Plug 'junegunn/fzf.vim'
+	Plug 'pangloss/vim-javascript'
 call plug#end()
 
 autocmd VimEnter *
