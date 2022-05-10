@@ -3,7 +3,25 @@
 # global git config
 git config --global user.email "sunladenmail@gmail.com"
 git config --global user.name "sunladen"
-git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/libexec/git-core/git-credential-manager-core.exe"
+
+# configure credential.helper if in a WSL environment and Git for Windows git-credential-manager can be found
+GCM_REL_EXE="mingw64/libexec/git-core/git-credential-manager-core.exe"
+if grep -qi microsoft /proc/version; then
+	USERPROFILE=$(wslpath "$(wslvar USERPROFILE)")
+	PROGFILES_PATH="/mnt/c/Program\ Files/Git"
+elif command -v cygpath &> /dev/null; then
+	PROGFILES_PATH="/c/Program\ Files/Git"
+fi
+
+if [ -f "${USERPROFILE}/AppData/Local/Programs/Git/${GCM_REL_EXE}" ]; then
+	echo "GCM in local user path"
+	#git config --global credential.helper "/mnt/c/Program\ Files/Git/${GCM_EXE}"
+elif [ -f "${PROGFILES_PATH}/${GCM_REL_EXE}" ]; then
+	echo "GCM in Program Files path"
+	#git config --global credential.helper "/mnt/c/Program\ Files/Git/${GCM_EXE}"
+fi
+
+exit 0
 
 
 # disable login banner
