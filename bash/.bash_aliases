@@ -4,7 +4,7 @@ alias l='ls -CF'
 alias code='code -r'
 
 if command -v batcat &> /dev/null; then alias bat='batcat'; fi
-if command -v nvim &> /dev/null; then alias vi='nvim'; elif command -v vim &> /dev/null; then alias vi='vim'; fi
+if command -v vim &> /dev/null; then alias vi='vim'; fi
 
 ssh-ecls-cls-dev() { ssh ecls@zaue1declsap02.wkap.int; }
 ssh-ecls-cls-tst() { ssh ecls@zaue1ueclsap03.wkap.int; }

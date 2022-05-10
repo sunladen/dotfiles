@@ -62,22 +62,13 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
-
-
-
-# when wsl, docker and service commands are available; start Docker as root if not already running
-if command -v /mnt/c/Windows/System32/wsl.exe &> /dev/null && command -v service &> /dev/null && command -v docker &> /dev/null; then
-	/mnt/c/Windows/System32/wsl.exe -u root -e sh -c "service docker status &>/dev/null || service docker start"
+# if docker and service commands are available; start Docker as root if not already running
+if command -v docker &> /dev/null && command -v service &> /dev/null; then
+	if grep -qi microsoft /proc/version && ! service docker status &>/dev/null && command -v /mnt/c/Windows/System32/wsl.exe &> /dev/null; then
+		# when in WSL environment elivate to root without password using wsl.exe command
+		echo "starting docker..."
+		/mnt/c/Windows/System32/wsl.exe -u root -e sh -c "service docker start"
+	fi
 fi
 
 
@@ -99,3 +90,9 @@ export NVM_DIR="$HOME/.nvm"
 
 
 PS1="\n\`if [[ \$? = "0" ]]; then echo "\\[\\033[32m\\]"; else echo "\\[\\033[31m\\]"; fi\`\\w \[\033[34m\]\$\[\033[0m\] "
+
+
+# tmux auto attach
+if command -v tmux &>/dev/null && [ -z "${TMUX}" ]; then
+	tmux a || tmux
+fi
