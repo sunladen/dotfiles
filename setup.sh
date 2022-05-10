@@ -41,7 +41,6 @@ rm -rf ~/.bash_profile && ln -s $PWD/bash/.bash_profile ~/.bash_profile
 rm -rf ~/.bashrc && ln -s $PWD/bash/.bashrc ~/.bashrc
 rm -rf ~/.inputrc && ln -s $PWD/bash/.inputrc ~/.inputrc
 rm -rf ~/.vim/vimrc && ln -s $PWD/.vim/vimrc ~/.vim/vimrc
-rm -rf ~/.config/nvim && ln -s $PWD/.config/nvim ~/.config/nvim
 rm -rf ~/.tmux.conf && ln -s $PWD/.tmux.conf ~/.tmux.conf
 rm -rf ~/.config/ranger && ln -s $PWD/.config/ranger ~/.config/ranger
 
