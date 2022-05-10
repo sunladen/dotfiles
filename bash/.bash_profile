@@ -77,8 +77,10 @@ fi
 
 # when wsl, docker and service commands are available; start Docker as root if not already running
 if command -v /mnt/c/Windows/System32/wsl.exe &> /dev/null && command -v service &> /dev/null && command -v docker &> /dev/null; then
-	/mnt/c/Windows/System32/wsl.exe -u root -e sh -c "service docker status || service docker start"
+	/mnt/c/Windows/System32/wsl.exe -u root -e sh -c "service docker status &>/dev/null || service docker start"
 fi
+
+
 
 
 # install Node Version Manager (nvm) if not available
