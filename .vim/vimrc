@@ -95,6 +95,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'junegunn/fzf.vim'
 	Plug 'pangloss/vim-javascript'
 	Plug 'tomasiser/vim-code-dark'
+	Plug 'itchyny/lightline.vim'
 call plug#end()
 
 let g:codedark_conservative = 1
@@ -103,7 +104,9 @@ colorscheme codedark
 hi Normal ctermbg=NONE
 hi StatusLine ctermbg=NONE
 
-
+let g:lightline = {
+  \ 'colorscheme': 'codedark',
+  \ }
 
 autocmd VimEnter *
   \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
@@ -122,7 +125,3 @@ nmap <leader>j :ALENext<cr>
 nnoremap <leader>ff <cmd>Files<cr>
 nnoremap <leader>fg <cmd>Rg<cr>
 nnoremap <leader>fb <cmd>Buffers<cr>
-
-python3 from powerline.vim import setup as powerline_setup
-python3 powerline_setup()
-python3 del powerline_setup
