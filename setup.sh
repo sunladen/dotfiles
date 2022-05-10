@@ -87,6 +87,16 @@ if grep -qi microsoft /proc/version; then
 			# Read size of WSL distro excluding Windows drive mount
 			#sudo du -sh / --exclude=/mnt/c
 
+			# for ssh to work properly; we need to uninstall and then reinstall
+			sudo apt remove -y openssh-server
+			sudo apt install -y openssh-server
+
+			# TODO: how to automate the following...
+			# sudo vim /etc/ssh/sshd_config
+			# Change PasswordAuthentication to yes
+			# Add login user to bottom of file:
+			# AllowUsers intranet
+
 			sudo apt install -y wsl
 			sudo apt install -y fzf
 			sudo apt install -y -o Dpkg::Options::="--force-overwrite" bat ripgrep
