@@ -14,6 +14,7 @@ compareInstalled() {
 			echo "installed version ${installed_version} is up-to-date"
 		fi
 	else
+		echo "${cmd} not installed"
 		cmp=1
 	fi
 
@@ -74,7 +75,6 @@ downloadAndInstall() {
 	tar xvf "${filename}"
 
 	cd "${extracted_dir}"
-	exit 0
 	./configure ${configure_args}
 	make
 	sudo make install

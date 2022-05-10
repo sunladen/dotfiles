@@ -76,8 +76,8 @@ fi
 
 
 # when wsl, docker and service commands are available; start Docker as root if not already running
-if command -v wsl &> /dev/null && command -v service &> /dev/null && command -v docker &> /dev/null; then
-	wsl -u root -e sh -c "service docker status || service docker start"
+if command -v /mnt/c/Windows/System32/wsl.exe &> /dev/null && command -v service &> /dev/null && command -v docker &> /dev/null; then
+	/mnt/c/Windows/System32/wsl.exe -u root -e sh -c "service docker status || service docker start"
 fi
 
 
