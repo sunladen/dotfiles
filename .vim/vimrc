@@ -10,7 +10,7 @@ set hls
 set path=.,**
 set nospell
 set signcolumn=no
-set tabstop=2 shiftwidth=2 autoindent smartindent
+set tabstop=4 shiftwidth=4 autoindent smartindent
 set noexpandtab
 set nottimeout
 set ttimeoutlen=0
@@ -18,10 +18,8 @@ set ruler
 set number
 set noshowmode
 set laststatus=2
+set showtabline=2
 set cursorline
-
-highlight CursorLine term=bold cterm=bold gui=bold
-highlight CursorLineNr term=bold cterm=bold gui=bold
 
 let g:netrw_dirhistmax = 0
 
@@ -38,11 +36,6 @@ nnoremap <Tab> :buffer<Space><Tab>
 " Ctr-P open wildmenu for edit *
 map <C-p> :e *<Tab>
 
-
-syntax on
-
-highlight LineNr ctermfg=Black cterm=bold
-highlight ColorColumn ctermbg=Black
 
 
 " Enable system clipboard integration
@@ -63,6 +56,16 @@ nmap <leader>n :lnext<cr>
 " move among buffers
 map <leader>h :bprev<CR>
 map <leader>l :bnext<CR>
+map <leader>0 :b0<CR>
+map <leader>1 :b1<CR>
+map <leader>2 :b2<CR>
+map <leader>3 :b3<CR>
+map <leader>4 :b4<CR>
+map <leader>5 :b5<CR>
+map <leader>6 :b6<CR>
+map <leader>7 :b7<CR>
+map <leader>8 :b8<CR>
+map <leader>9 :b9<CR>
 
 map [[ :silent! eval search('{', 'b')<CR>
 map ]] :silent! eval search('{')<CR>
@@ -84,9 +87,6 @@ let &t_EI = "\e[2 q"
 autocmd VimEnter * normal! :startinsert :stopinsert
 
 
-hi Normal guibg=NONE ctermbg=NONE
-
-
 " Plug plugins manager
 " Install manager if not intalled
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -99,20 +99,32 @@ call plug#begin('~/.vim/plugged')
 	Plug 'eslint/eslint'
 	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	Plug 'junegunn/fzf.vim'
-	Plug 'tomasiser/vim-code-dark'
+	"Plug 'tomasiser/vim-code-dark'
 	Plug 'itchyny/lightline.vim'
-	Plug 'jelera/vim-javascript-syntax'
+	Plug 'mengelbrecht/lightline-bufferline'
 call plug#end()
 
-let g:codedark_conservative = 1
-set background=dark
-colorscheme codedark
-hi Normal ctermbg=NONE
-hi StatusLine ctermbg=NONE
 
-let g:lightline = {
-  \ 'colorscheme': 'codedark',
-  \ }
+set background=dark
+
+"hi Normal ctermbg=NONE
+"hi StatusLine ctermbg=1
+"hi CursorLineNr cterm=none
+"hi ColorColumn ctermbg=Black
+hi CursorLine cterm=bold
+hi CursorLineNr cterm=bold
+
+syntax enable
+
+let g:lightline#bufferline#show_number  = 1
+let g:lightline#bufferline#shorten_path = 0
+let g:lightline#bufferline#unnamed      = '[No Name]'
+
+let g:lightline                  = {}
+let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
+let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_type   = {'buffers': 'tabsel'}
+
 
 autocmd VimEnter *
   \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
