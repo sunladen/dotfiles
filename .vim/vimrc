@@ -18,7 +18,6 @@ set ruler
 set number
 set noshowmode
 set laststatus=2
-set showtabline=2
 set cursorline
 
 let g:netrw_dirhistmax = 0
@@ -87,8 +86,7 @@ let &t_EI = "\e[2 q"
 autocmd VimEnter * normal! :startinsert :stopinsert
 
 
-" Plug plugins manager
-" Install manager if not intalled
+" Plugins
 if empty(glob('~/.vim/autoload/plug.vim'))
 	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
 		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -99,10 +97,13 @@ call plug#begin('~/.vim/plugged')
 	Plug 'eslint/eslint'
 	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	Plug 'junegunn/fzf.vim'
-	"Plug 'tomasiser/vim-code-dark'
 	Plug 'itchyny/lightline.vim'
-	Plug 'mengelbrecht/lightline-bufferline'
 call plug#end()
+
+autocmd VimEnter *
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync | q
+  \| endif
 
 
 set background=dark
@@ -114,24 +115,16 @@ set background=dark
 hi CursorLine cterm=bold
 hi CursorLineNr cterm=bold
 
+let g:lightline = {
+	\ 'colorscheme': '16color',
+	\ 'separator': { 'left': "", 'right': "" },
+ 	\ 'subseparator': { 'left': "", 'right': "" },
+	\ }
+
 syntax enable
 
-let g:lightline#bufferline#show_number  = 1
-let g:lightline#bufferline#shorten_path = 0
-let g:lightline#bufferline#unnamed      = '[No Name]'
 
-let g:lightline                  = {}
-let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
-let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
-let g:lightline.component_type   = {'buffers': 'tabsel'}
-
-
-autocmd VimEnter *
-  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  \|   PlugInstall --sync | q
-  \| endif
-
-
+" ale settings
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['eslint'],
@@ -140,6 +133,7 @@ let g:ale_fix_on_save = 1
 
 nmap <leader>j :ALENext<cr>
 
+" fzf shortcuts
 nnoremap <leader>ff <cmd>Files<cr>
 nnoremap <leader>fg <cmd>Rg<cr>
 nnoremap <leader>fb <cmd>Buffers<cr>
