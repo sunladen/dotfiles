@@ -12,8 +12,9 @@ set nospell
 set signcolumn=no
 set tabstop=4 shiftwidth=4 autoindent smartindent
 set noexpandtab
-set nottimeout
-set ttimeoutlen=0
+set notimeout
+set ttimeout
+"set ttimeoutlen=10
 set ruler
 set number
 set noshowmode
@@ -27,7 +28,7 @@ set wildmenu
 set wildmode=full
 set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png,*.ico
 set wildignore+=*.pdf,*.psd
-set wildignore+=LINCENSE,node_modules/*,.git/*
+set wildignore+=node_modules/*,.git/*
 
 " <Tab> in normal mode shows wildmenu of buffers
 nnoremap <Tab> :buffer<Space><Tab>
@@ -92,13 +93,18 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
+
+
+
+
 call plug#begin('~/.vim/plugged')
-  Plug 'dense-analysis/ale'
-	Plug 'eslint/eslint'
+	Plug 'scrooloose/syntastic'
 	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	Plug 'junegunn/fzf.vim'
 	Plug 'itchyny/lightline.vim'
+	Plug 'pangloss/vim-javascript'
 call plug#end()
+
 
 autocmd VimEnter *
   \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
@@ -106,34 +112,57 @@ autocmd VimEnter *
   \| endif
 
 
+
+"let g:syntastic_javascript_eslint_exe = '/usr/bin/ls' "[ -f $(npm bin)/eslint ] && $(npm bin)/eslint || eslint'
+" Enable the eslint checker
+let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_javascript_eslint_generic = 1
+let g:syntastic_javascript_eslint_exec = '/bin/ls'
+let g:syntastic_javascript_eslint_exe='$(path=node_modules/.bin/eslint && while [ ! -f $path ]; do path=../$path; done; echo $(cd $(dirname $path); pwd)/$(basename $path))'
+let g:syntastic_javascript_eslint_args='-f compact --fix'
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_loc_list_height = 5
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" read changed javascript file after eslint applied fixes
+set autoread
+au BufReadPost *.js checktime
+au VimEnter *.js au BufWritePost *.js checktime
+
+
 set background=dark
 
 "hi Normal ctermbg=NONE
 "hi StatusLine ctermbg=1
-"hi CursorLineNr cterm=none
 "hi ColorColumn ctermbg=Black
+hi LineNr ctermfg=grey
 hi CursorLine cterm=bold
-hi CursorLineNr cterm=bold
+hi CursorLineNr cterm=bold ctermfg=white
+
 
 let g:lightline = {
 	\ 'colorscheme': '16color',
 	\ 'separator': { 'left': "", 'right': "" },
- 	\ 'subseparator': { 'left': "", 'right': "" },
+ 	\ 'subseparator': { 'left': "", 'right': "" },
 	\ }
 
 syntax enable
 
 
-" ale settings
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['eslint'],
-\}
-let g:ale_fix_on_save = 1
-
-nmap <leader>j :ALENext<cr>
-
 " fzf shortcuts
 nnoremap <leader>ff <cmd>Files<cr>
 nnoremap <leader>fg <cmd>Rg<cr>
 nnoremap <leader>fb <cmd>Buffers<cr>
+
+
+" location shortcuts
+nnoremap <leader>j <cmd>lnext<cr>
+nnoremap <leader>k <cmd>lprev<cr>
+
