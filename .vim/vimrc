@@ -14,9 +14,9 @@ set tabstop=4 shiftwidth=4 autoindent smartindent
 set noexpandtab
 set notimeout
 set ttimeout
-"set ttimeoutlen=10
+set ttimeoutlen=5
 set ruler
-set number
+set relativenumber
 set noshowmode
 set laststatus=2
 set cursorline
