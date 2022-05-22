@@ -20,6 +20,10 @@ set relativenumber
 set noshowmode
 set laststatus=2
 set cursorline
+set showbreak=↪\
+set listchars=space:·,tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
+set list
+set signcolumn=yes
 
 let g:netrw_dirhistmax = 0
 
@@ -33,8 +37,9 @@ set wildignore+=node_modules/*,.git/*
 " <Tab> in normal mode shows wildmenu of buffers
 nnoremap <Tab> :buffer<Space><Tab>
 
-" Ctr-P open wildmenu for edit *
-map <C-p> :e *<Tab>
+" Ctr-P open wildmenu for find *
+map <C-p> :find *<Tab>
+
 
 
 
@@ -81,8 +86,8 @@ map ]] :silent! eval search('{')<CR>
 "   Ps = 4  -> steady underline.
 "   Ps = 5  -> blinking bar (xterm).
 "   Ps = 6  -> steady bar (xterm).
-let &t_SI = "\e[6 q"
-let &t_EI = "\e[2 q"
+"let &t_SI = "\e[1 q"
+"let &t_EI = "\e[2 q"
 
 autocmd VimEnter * normal! :startinsert :stopinsert
 
@@ -98,6 +103,7 @@ endif
 
 
 call plug#begin('~/.vim/plugged')
+	Plug 'tpope/vim-unimpaired'
 	Plug 'scrooloose/syntastic'
 	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	Plug 'junegunn/fzf.vim'
@@ -115,11 +121,14 @@ autocmd VimEnter *
 
 "let g:syntastic_javascript_eslint_exe = '/usr/bin/ls' "[ -f $(npm bin)/eslint ] && $(npm bin)/eslint || eslint'
 " Enable the eslint checker
+"let g:syntastic_debug=33
+"let g:syntastic_debug_file="~/syntastic.log"
 let g:syntastic_javascript_checkers=['eslint']
 let g:syntastic_javascript_eslint_generic = 1
 let g:syntastic_javascript_eslint_exec = '/bin/ls'
-let g:syntastic_javascript_eslint_exe='$(path=node_modules/.bin/eslint && while [ ! -f $path ]; do path=../$path; done; echo $(cd $(dirname $path); pwd)/$(basename $path))'
-let g:syntastic_javascript_eslint_args='-f compact --fix'
+let g:syntastic_javascript_eslint_exe=''
+let g:syntastic_javascript_eslint_args='f="'
+let g:syntastic_javascript_eslint_post_args='";$(p=`pwd`; while [ "$p" != "/" ] && [ ! -f $p/node_modules/.bin/eslint ];do p=$(cd $p/..; pwd);done;echo $p/node_modules/.bin/eslint) --fix --format compact $f'
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -142,9 +151,11 @@ set background=dark
 "hi Normal ctermbg=NONE
 "hi StatusLine ctermbg=1
 "hi ColorColumn ctermbg=Black
-hi LineNr ctermfg=grey
+hi LineNr ctermfg=black
 hi CursorLine cterm=bold
-hi CursorLineNr cterm=bold ctermfg=white
+hi CursorLineNr cterm=bold ctermfg=grey
+hi NonText ctermfg=black
+hi SpecialKey ctermfg=black
 
 
 let g:lightline = {
