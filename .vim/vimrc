@@ -9,7 +9,6 @@ set incsearch
 set hls
 set path=.,**
 set nospell
-set signcolumn=no
 set tabstop=4 shiftwidth=4 autoindent smartindent
 set noexpandtab
 set notimeout
@@ -21,9 +20,26 @@ set noshowmode
 set laststatus=2
 set cursorline
 set showbreak=↪\
+set scrolloff=8
 set listchars=space:·,tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
-set list
-set signcolumn=yes
+set signcolumn=number
+set background=dark
+
+"hi Normal ctermbg=NONE
+"hi StatusLine ctermbg=1
+"hi ColorColumn ctermbg=Black
+hi LineNr ctermfg=black
+hi CursorLine cterm=bold
+hi CursorLineNr cterm=bold ctermfg=grey
+hi NonText ctermfg=black
+hi SpecialKey ctermfg=black
+hi VertSplit cterm=NONE ctermfg=black
+
+
+" Easier window navigation
+nnoremap H <C-w>h
+nnoremap L <C-w>l
+
 
 let g:netrw_dirhistmax = 0
 
@@ -92,6 +108,20 @@ map ]] :silent! eval search('{')<CR>
 autocmd VimEnter * normal! :startinsert :stopinsert
 
 
+
+" Project Drawer
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 15
+augroup ProjectDrawer
+  autocmd!
+  autocmd VimEnter * :Vexplore
+augroup END
+
+
+
 " Plugins
 if empty(glob('~/.vim/autoload/plug.vim'))
 	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -146,18 +176,6 @@ au BufReadPost *.js checktime
 au VimEnter *.js au BufWritePost *.js checktime
 
 
-set background=dark
-
-"hi Normal ctermbg=NONE
-"hi StatusLine ctermbg=1
-"hi ColorColumn ctermbg=Black
-hi LineNr ctermfg=black
-hi CursorLine cterm=bold
-hi CursorLineNr cterm=bold ctermfg=grey
-hi NonText ctermfg=black
-hi SpecialKey ctermfg=black
-
-
 let g:lightline = {
 	\ 'colorscheme': '16color',
 	\ 'separator': { 'left': "", 'right': "" },
@@ -173,7 +191,4 @@ nnoremap <leader>fg <cmd>Rg<cr>
 nnoremap <leader>fb <cmd>Buffers<cr>
 
 
-" location shortcuts
-nnoremap <leader>j <cmd>lnext<cr>
-nnoremap <leader>k <cmd>lprev<cr>
 
