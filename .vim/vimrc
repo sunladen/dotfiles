@@ -17,7 +17,7 @@ set ttimeoutlen=5
 set timeoutlen=100
 set noesckeys
 set ruler
-set relativenumber
+set number
 set noshowmode
 set laststatus=2
 set cursorline
